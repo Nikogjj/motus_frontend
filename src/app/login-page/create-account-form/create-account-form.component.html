@@ -1,0 +1,38 @@
+<form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()" class="form_login">
+    <h2>SIGN UP </h2>
+    <!-- @if (this.msg_error_submit!="") {
+        <p>{{msg_error_submit}}</p>
+    } -->
+    <div class="container_inputs">
+        <div class="input">
+            <input type="text" placeholder="Identifiant" formControlName="identifiant">
+            <div *ngIf="isInvalidTouchedOrDirty('identifiant')">
+                <p style="margin: 5px 0 0 0; color: red;" *ngIf="createAccountForm.controls.identifiant.hasError('required')">champs requis</p>
+            </div>
+            <div *ngIf="isInvalidTouchedOrDirty('identifiant')">
+                <p style="margin: 5px 0 0 0;color: red;" *ngIf="createAccountForm.controls.identifiant.hasError('minlength')">doit contenir au moins 3 caractères</p>
+            </div>
+        </div>
+        <div class="input">
+            <input type="text" placeholder="Mot de passe" formControlName="password">
+            <div *ngIf="isInvalidTouchedOrDirty('password')">
+                <p style="margin: 5px 0 0 0; color: red;" *ngIf="createAccountForm.controls.password.hasError('required')">champs requis</p>
+            </div>
+            <div *ngIf="isInvalidTouchedOrDirty('password')">
+                <p style="margin: 5px 0 0 0; color: red;" *ngIf="createAccountForm.controls.password.hasError('minlength')">doit contenir au moins 5 caractères</p>
+            </div>
+        </div>
+        <div class="input">
+            <input type="text" placeholder="Confirmez votre mot de passe" formControlName="confirmed_password">
+            <div *ngIf="isInvalidTouchedOrDirty('confirmed_password')">
+                @if (this.isPasswordSame("confirmed_password")) {
+                    <p style="margin: 5px 0 0 0; color: red;">Les mots de passe ne correspondent pas</p>
+                }
+            </div>
+        </div>
+        @if (this.verifyIfAccountCreated==1) {
+            <h3>{{this.msgAccountCreated}}</h3>
+        }
+    </div>
+    <button type="submit">SUBMIT</button>
+</form>
