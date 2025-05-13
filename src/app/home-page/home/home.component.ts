@@ -10,12 +10,14 @@ import { AppService } from '../../service/app.service';
 })
 export class HomeComponent {
   appServices = inject(AppService);
-  motAfficher = "";
+  // motAfficher = "";
+  // ngOnInit(){
+  //   this.appServices.getRandomMot()
+  //   .then(res=>{
+  //     this.motAfficher = res.mot
+  //     console.log(this.motAfficher)
+  //   })
+  // }
   ngOnInit(){
-    this.appServices.getRandomMot()
-    .then(res=>{
-      this.motAfficher = res.mot
-      console.log(this.motAfficher)
-    })
   }
 }

@@ -2,6 +2,7 @@ import { Component, effect, inject, input, SimpleChange, SimpleChanges } from '@
 import { Letter } from '../../interfaces/letter';
 import { AppService } from '../../service/app.service';
 import { CommonModule } from '@angular/common';
+import { Mot } from '../../interfaces/mot';
 
 @Component({
   selector: 'app-motus',
@@ -20,25 +21,33 @@ export class MotusComponent {
     exist : false,
     checkPosition : false
   }
-  
+  motATrouver : Mot = {
+    mot : "",
+    longueur : 0,
+    difficulté : ""
+  };
   indexTrackLetter : number = 0;
-  mot = input.required<string>();
   nb_tentaive = 0;
   nb_tentatives_max = 6;
   tab_mot_tentative : Array<Array <Letter>> = [];
 
-  motMAJ = effect(()=>{
-    const motATrouver = this.mot();
-    const firstLettreMotATrouver : Letter = {
-      value : this.mot()[0],
-      exist : false,
-      checkPosition : false
-    }
+  async ngOnInit(){
+    this.motATrouver = await this.appServices.getRandomMot();
+    this.clearTabTentative();
+  }
+  
+  clearTabTentative(){
     for (let i = 0; i < this.nb_tentatives_max; i++) {
-      this.tab_mot_tentative[i] = new Array(motATrouver.length).fill(this.lettreVide,0,motATrouver.length);
+      this.tab_mot_tentative[i] = new Array(this.motATrouver.mot.length).fill(this.lettreVide,0,this.motATrouver.mot.length);
     }
-    this.tab_mot_tentative[0][0] = firstLettreMotATrouver;
-  })
+    let lettre : Letter={
+      value : this.motATrouver.mot[0],
+      exist : false,
+      checkPosition : false,
+    }
+    this.tab_mot_tentative[0][0] = lettre;
+    console.log(this.motATrouver)
+  }
 
   changeColor(motADeviner : string, motDuJoueur : Array <Letter>){
     motDuJoueur.forEach((lettre,i) => {
@@ -84,12 +93,24 @@ export class MotusComponent {
       return false;
     }
   }
+  checkDefeat(){
+    if (this.nb_tentaive == this.nb_tentatives_max) {
+      console.log("PERDU")
+      return true;
+    }
+    else{
+      console.log(" PAS ENCORE PERDU")
+      console.log("tentative max :",this.nb_tentatives_max)
+      console.log("tentative :",this.nb_tentaive)
+      return false;
+    }
+  }
 
   onKeyDown(event : KeyboardEvent){
     if (this.isGameFinish==true) {
       return;
     }
-    if (/^[a-zA-Z]$/.test(event.key) && this.indexTrackLetter < this.mot().length) {
+    if (/^[\p{L}]$/u.test(event.key) && this.indexTrackLetter < this.motATrouver.mot.length) {
       const lettre : Letter = {
       value : event.key,
       exist : false,
@@ -106,10 +127,14 @@ export class MotusComponent {
       }
     }
     else if (event.key == "Enter") {
-      if (this.indexTrackLetter == this.mot().length) {
-        this.changeColor(this.mot(),this.tab_mot_tentative[this.nb_tentaive])
-        this.checkVictory(this.mot(),this.tab_mot_tentative[this.nb_tentaive])
+      if (this.indexTrackLetter == this.motATrouver.mot.length) {
+        this.changeColor(this.motATrouver.mot,this.tab_mot_tentative[this.nb_tentaive])
+        this.checkVictory(this.motATrouver.mot,this.tab_mot_tentative[this.nb_tentaive])
         this.nb_tentaive++;
+        if (this.checkDefeat()) {
+          this.isGameFinish = true
+          this.msgGameFinish = "Vous avez perdu vous êtes nul"
+        }
         this.indexTrackLetter=0;
       }
       else{
@@ -120,7 +145,11 @@ export class MotusComponent {
     }
   }
 
-  test(){
-    console.log("test")
+  async restartGame(){
+    this.motATrouver = await this.appServices.getRandomMot()
+    this.nb_tentaive=0;
+    this.clearTabTentative()
+    this.msgGameFinish = "";
+    this.isGameFinish = false;
   }
 }

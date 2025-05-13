@@ -20,6 +20,4 @@ export class AppService {
       .catch(error=>reject(error))
     })
     }
-    public mot = "";
-
 }
