@@ -1,92 +1,15 @@
-<!-- <div class="mot" (keydown)="onKeyDown($event)" tabindex="0">
-    <div class="tentative">
-        @if (this.nb_tentaive==1) {
-            @for (letter of this.test(); track $index) {
-                @if (this.my_mot[$index]) {
-                    <p>{{this.my_mot[$index].toLocaleUpperCase()}}</p>
-                }
-                @else {
-                    @if ($index == 0) {
-                        <p>{{letter.toLocaleUpperCase()}}</p>
-                    }
-                    @else {
-                        <p></p>
-                    }
-                }
-            }
-        }
-        @else {
-            @for (letter of this.tab_mot_tentative[0]; track $index) {
-                <p [style.background-color]="checkColor(this.tab_mot_tentative[0],this.mot(),$index)">{{letter.toLocaleUpperCase()}}</p>
-            }
-        }
-    </div>
-    <div class="tentative" id="2">
-        @if (this.nb_tentaive == 2) {
-            @for (letter of this.mot(); track $index) {
-                @if (this.my_mot =="") {
-                    <p>{{this.mot()[$index].toLocaleUpperCase()}}</p>
-                }
-                @else {
-                    @if (this.my_mot[$index]==undefined) {
-                        <p> </p>
-                    }
-                    @else {
-                        <p>{{this.my_mot[$index].toLocaleUpperCase()}}</p>
-                    }
-                }
-            }
-        }
-        @else if(this.nb_tentaive>2){
-            @for (letter of this.mot(); track $index) {
-                @if (this.my_mot[$index]==undefined) {
-                    <p> </p>
-                }
-                @else {
-                    <p>{{this.my_mot[$index].toLocaleUpperCase()}}</p>
-                }
-            }
-        }
-        @else {
-            @for (letter of this.mot(); track $index) {
-                <p> </p>
-            }
-        }
-        </div>
-    <div class="tentative" id="3">
-        @for (letter of this.test(); track $index) {
-            <p>{{this.my_mot[$index].toUpperCase()}}</p>
-        }
-    </div>
-    <div class="tentative" id="4">
-        @for (letter of this.test(); track $index) {
-            <p>{{this.my_mot[$index].toUpperCase()}}</p>
-        }
-    </div>
-    <div class="tentative" id="5">
-        @for (letter of this.test(); track $index) {
-            <p>{{this.my_mot[$index].toUpperCase()}}</p>
-        }
-    </div>
-    <div class="tentative" id="6">
-        @for (letter of this.test(); track $index) {
-            <p>{{this.my_mot[$index].toUpperCase()}}</p>
-        }
-    </div>
-</div>
- -->
-
  <div class="mot" (keydown)="onKeyDown($event)" tabindex="0">
     @for (mot of this.tab_mot_tentative; track $index) {
         <div class="tentative">
             @for (lettre of mot; track $index) {
-                @if (lettre.value == undefined && $index == nb_tentaive) {
-                    <p>{{my_mot[$index].value}}</p>
-                }
-                @else {
-                    <p [style.background-color]="checkColor(lettre)">{{lettre.value}}</p>
-                }
+                <p [style.background-color]="checkColor(lettre)">{{lettre.value?.toUpperCase()}}</p>
             }
         </div>
     }
- </div>
+</div>
+@if (this.isGameFinish) {
+    <div class="container_msg">
+        <p>{{this.msgGameFinish}}</p>
+        <button (click)="test()">Appuyez ici pour recommencer une partie</button>
+    </div>
+}
