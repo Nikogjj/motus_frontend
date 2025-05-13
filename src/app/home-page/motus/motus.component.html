@@ -1,0 +1,15 @@
+ <div class="mot" (keydown)="onKeyDown($event)" tabindex="0">
+    @for (mot of this.tab_mot_tentative; track $index) {
+        <div class="tentative">
+            @for (lettre of mot; track $index) {
+                <p [style.background-color]="checkColor(lettre)">{{lettre.value?.toUpperCase()}}</p>
+            }
+        </div>
+    }
+</div>
+@if (this.isGameFinish) {
+    <div class="container_msg">
+        <p>{{this.msgGameFinish}}</p>
+        <button (click)="restartGame()">Appuyez ici pour recommencer une partie</button>
+    </div>
+}

@@ -42,6 +42,7 @@ export class CreateAccountFormComponent {
     }
     if (this.createAccountForm.controls.password.value != this.createAccountForm.controls.confirmed_password.value) {
       console.log("Les mots de passe ne correspondent pas")
+      this.verifyPassword=1
       return;
     }
     await this.authServices.createAccount({
