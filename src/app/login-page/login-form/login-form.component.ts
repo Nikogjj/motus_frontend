@@ -1,5 +1,9 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, inject, NgModule } from '@angular/core';
 import { FormControl, FormGroup, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../service/auth.service';
+import { LoginInfos } from '../../interfaces/login-infos';
+import { Subject, takeUntil } from 'rxjs';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -8,12 +12,34 @@ import { FormControl, FormGroup, NgForm, ReactiveFormsModule } from '@angular/fo
   styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
+  constructor(private router : Router){
+
+  }
+  error = 0;
+  authServices=inject(AuthService);
+  
   loginForm = new FormGroup({
     identifiant : new FormControl(""),
     password : new FormControl("")
   })
-
+  
   onSubmit(){
-    
+    const loginInfos : LoginInfos = {
+      pseudo : this.loginForm.get("identifiant")?.value??"",
+      password : this.loginForm.get("password")?.value??""
+
+    }
+    this.authServices.login(loginInfos)
+    .then(res=>{
+      if (res.error == "none") {
+        this.error = 0;
+        localStorage.setItem("token","test")//FAUT CHANGER ICI QUAND JE FAIS L'AUTH
+        this.router.navigate(["/home"]);
+      }
+      else{
+        this.error=1;
+      }
+    })
+    .catch(error=>console.error(error));
   }
 }

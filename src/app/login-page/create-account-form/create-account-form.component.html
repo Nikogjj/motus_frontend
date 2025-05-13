@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="input">
-            <input type="text" placeholder="Mot de passe" formControlName="password">
+            <input type="password" placeholder="Mot de passe" formControlName="password">
             <div *ngIf="isInvalidTouchedOrDirty('password')">
                 <p style="margin: 5px 0 0 0; color: red;" *ngIf="createAccountForm.controls.password.hasError('required')">champs requis</p>
             </div>
@@ -23,12 +23,12 @@
             </div>
         </div>
         <div class="input">
-            <input type="text" placeholder="Confirmez votre mot de passe" formControlName="confirmed_password">
-            <div *ngIf="isInvalidTouchedOrDirty('confirmed_password')">
-                @if (this.isPasswordSame("confirmed_password")) {
+            <input type="password" placeholder="Confirmez votre mot de passe" formControlName="confirmed_password">
+            <!-- <div *ngIf="isInvalidTouchedOrDirty('confirmed_password')"> -->
+                @if (this.verifyPassword!=0) {
                     <p style="margin: 5px 0 0 0; color: red;">Les mots de passe ne correspondent pas</p>
                 }
-            </div>
+            <!-- </div> -->
         </div>
         @if (this.verifyIfAccountCreated==1) {
             <h3>{{this.msgAccountCreated}}</h3>
