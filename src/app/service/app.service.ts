@@ -20,4 +20,8 @@ export class AppService {
       .catch(error=>reject(error))
     })
     }
+
+    public getRandomMotByDifficulte(){
+
+    }
 }

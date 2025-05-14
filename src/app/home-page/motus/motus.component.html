@@ -1,15 +1,36 @@
- <div class="mot" (keydown)="onKeyDown($event)" tabindex="0">
+<div class="difficulté">
+    <div class="buttons">
+        <p>Choisir une difficulté :</p>
+        <div>
+            @for (difficulte of tab_difficulte; track $index) {
+                <button>{{difficulte}}</button>
+               }
+           </div>
+       </div>
+       <p>Difficulté du mot : {{this.motATrouver.difficulte}}</p>
+</div>
+
+ <div class="mot" tabindex="0">
     @for (mot of this.tab_mot_tentative; track $index) {
         <div class="tentative">
             @for (lettre of mot; track $index) {
-                <p [style.background-color]="checkColor(lettre)">{{lettre.value?.toUpperCase()}}</p>
+                <div class="container_p" [style.background-color]="checkColor(lettre)">
+                    <p [style.background-color]="checkColor(lettre)">{{lettre.value?.toUpperCase()}}</p>
+                </div>
             }
         </div>
     }
 </div>
 @if (this.isGameFinish) {
     <div class="container_msg">
-        <p>{{this.msgGameFinish}}</p>
-        <button (click)="restartGame()">Appuyez ici pour recommencer une partie</button>
+        <div class="test">
+            <p>{{this.msgGameFinish}}</p>
+        </div>
+        <div class="test2">
+            <p>Le bont mot était : {{this.motATrouver.mot}}</p>
+            <p>Vous remportez 0 point</p>
+        </div>
+        <button (click)="restartGame()">NEW GAME</button>
     </div>
 }
+<app-keyboard (keyPressed)="onVirtualKeyDown($event)"></app-keyboard>

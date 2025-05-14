@@ -1,18 +1,19 @@
-import { Component, effect, inject, input, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, effect, HostListener, inject, input, SimpleChange, SimpleChanges } from '@angular/core';
 import { Letter } from '../../interfaces/letter';
 import { AppService } from '../../service/app.service';
 import { CommonModule } from '@angular/common';
 import { Mot } from '../../interfaces/mot';
+import { KeyboardComponent } from '../keyboard/keyboard.component';
 
 @Component({
   selector: 'app-motus',
-  imports: [CommonModule],
+  imports: [CommonModule,KeyboardComponent],
   templateUrl: './motus.component.html',
   styleUrl: './motus.component.css'
 })
 export class MotusComponent {
   appServices = inject(AppService);
-
+  tab_difficulte =["facile","intermédiaire","moyen","difficile","hardcore"];
   isGameFinish : boolean = false;
   msgGameFinish : string = "";
   
@@ -24,7 +25,7 @@ export class MotusComponent {
   motATrouver : Mot = {
     mot : "",
     longueur : 0,
-    difficulté : ""
+    difficulte : ""
   };
   indexTrackLetter : number = 0;
   nb_tentaive = 0;
@@ -33,9 +34,10 @@ export class MotusComponent {
 
   async ngOnInit(){
     this.motATrouver = await this.appServices.getRandomMot();
+    console.log(this.motATrouver)
     this.clearTabTentative();
   }
-  
+
   clearTabTentative(){
     for (let i = 0; i < this.nb_tentatives_max; i++) {
       this.tab_mot_tentative[i] = new Array(this.motATrouver.mot.length).fill(this.lettreVide,0,this.motATrouver.mot.length);
@@ -50,8 +52,11 @@ export class MotusComponent {
   }
 
   changeColor(motADeviner : string, motDuJoueur : Array <Letter>){
+    console.log(motDuJoueur)
     motDuJoueur.forEach((lettre,i) => {
       if (lettre.value == motADeviner[i]) {
+        console.log("MASSSI")
+        //ICI LE BUG
         lettre.checkPosition=true,
         lettre.exist=true
       }
@@ -64,16 +69,18 @@ export class MotusComponent {
         lettre.exist=false;
       }
     });
+    console.log(motDuJoueur);
+    console.log("fait")
   }
   checkColor(lettre : Letter){
     if (lettre.checkPosition) {
-      return "red";
+      return "rgb(228, 0, 0)";
     }
     else if(lettre.exist && lettre.checkPosition==false){
-      return "yellow";
+      return "rgb(255, 217, 0)";
     }
     else{
-      return "blue";
+      return "grey";
     }
   }
 
@@ -106,27 +113,29 @@ export class MotusComponent {
     }
   }
 
-  onKeyDown(event : KeyboardEvent){
+  onKeyDown(key : string){
+    if (key === "⏎") {
+      key = "Enter";
+    }
+    console.log(key)
     if (this.isGameFinish==true) {
       return;
     }
-    if (/^[\p{L}]$/u.test(event.key) && this.indexTrackLetter < this.motATrouver.mot.length) {
-      const lettre : Letter = {
-      value : event.key,
-      exist : false,
-      checkPosition : false
-      }
-      this.tab_mot_tentative[this.nb_tentaive][this.indexTrackLetter] = lettre;
-      this.indexTrackLetter++
+    if (/^[\p{L}]$/u.test(key) && this.indexTrackLetter < this.motATrouver.mot.length) {
+      this.addLetter(key);
+      console.log(this.tab_mot_tentative);
     }
-    else if (event.key == "Backspace") {
-      const length = this.tab_mot_tentative[this.nb_tentaive].length;
-      this.tab_mot_tentative[this.nb_tentaive][this.indexTrackLetter-1] = this.lettreVide
-      if (this.indexTrackLetter !=0) {
-        this.indexTrackLetter--
+    else if (key === "←" || key === "Backspace") {
+      if (this.indexTrackLetter==0) {
       }
+      else{
+        this.deleteLetter();
+        this.indexTrackLetter--;
+      }
+      console.log(this.tab_mot_tentative);
     }
-    else if (event.key == "Enter") {
+    else if (key === "Enter") {
+      console.log("massiiiiiiiiii")
       if (this.indexTrackLetter == this.motATrouver.mot.length) {
         this.changeColor(this.motATrouver.mot,this.tab_mot_tentative[this.nb_tentaive])
         this.checkVictory(this.motATrouver.mot,this.tab_mot_tentative[this.nb_tentaive])
@@ -145,11 +154,35 @@ export class MotusComponent {
     }
   }
 
+  addLetter(key : string){
+    const lettre : Letter = {
+      value : key.toLowerCase(),
+      exist : false,
+      checkPosition : false
+    }
+      this.tab_mot_tentative[this.nb_tentaive][this.indexTrackLetter] = lettre;
+      this.indexTrackLetter++
+  }
+  deleteLetter(){
+    this.tab_mot_tentative[this.nb_tentaive][this.indexTrackLetter-1] = this.lettreVide
+  }
+
   async restartGame(){
     this.motATrouver = await this.appServices.getRandomMot()
     this.nb_tentaive=0;
     this.clearTabTentative()
     this.msgGameFinish = "";
     this.isGameFinish = false;
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    let key = event.key
+    this.onKeyDown(key);
+  }
+
+  // Appelé quand touche virtuelle cliquée
+  onVirtualKeyDown(key: string) {
+    this.onKeyDown(key)
   }
 }
