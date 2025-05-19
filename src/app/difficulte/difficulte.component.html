@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="choose_difficulte">
+        <div class="text">
+            <h3>Choisissez une autre difficulté :</h3>
+            <p>(votre partie recommencera)</p>
+        </div>
+        <div class="buttons">
+            @for (difficulte of tab_difficulte; track $index) {
+                <button 
+                (focus)="this.looseFocus($event)"
+                (click)="this.gameService.restartGameWithDifficulte(difficulte)">{{difficulte.toUpperCase()}}</button>
+            }
+        </div>
+    </div>
+    <h3>Difficulté actuel : {{this.gameService.motATrouverInfo.difficulte.toUpperCase()}}</h3>
+</div>

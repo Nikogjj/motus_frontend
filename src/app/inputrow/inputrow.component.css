@@ -1,0 +1,29 @@
+.row{
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    gap: 0.5rem;
+}
+.lettre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 3rem;
+    background-color: rgb(253, 253, 253);
+    border-radius: 0.5rem;
+}
+.lettre p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 3rem;
+    font-size: 2rem;
+    margin: 0;
+    background-color: transparent;
+    border-radius: 50%;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+}

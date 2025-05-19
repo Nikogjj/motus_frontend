@@ -6,7 +6,7 @@
     width: 100wh;
     gap: 3rem;
 }
-.container_img{
+/* .container_img{
     display: flex;
     flex-direction:row;
     justify-content: space-around;
@@ -27,4 +27,10 @@
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.445);
     border-radius: 1rem;
+} */
+.display_other_component{
+    position:fixed;
+    top: 50%;
+    right: calc(50%-(50%/2));
+    width: 50%;
 }

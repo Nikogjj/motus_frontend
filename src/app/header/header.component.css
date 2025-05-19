@@ -1,0 +1,22 @@
+.container_img{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    align-items: flex-end;
+    border-bottom: 3px solid black;
+    padding-bottom: 1rem;
+    width: 100%;
+}
+#logo{
+    width: 400px;
+}
+#petit{
+    padding: 1rem;
+    width: 35px;
+    height: 35px;
+}
+#petit:hover{
+    cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.445);
+    border-radius: 1rem;
+}

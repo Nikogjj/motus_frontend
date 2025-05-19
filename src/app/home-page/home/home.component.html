@@ -1,10 +1,19 @@
 <div class="container_all">
-    <div class="container_img">
-        <img id="petit" src="help.png" alt="">
-        <img id="petit" src="ranking.png" alt="">
+    <!-- <div class="container_img">
+        <img id="petit" (click)="this.displayRules()" src="help.png" alt="">
+        <img id="petit"(click)="this.displayRanking()" src="ranking.png" alt="">
         <img id="logo" src="logo_transparent.png" alt="">
         <img id="petit" src="game.png" alt="">
-        <img id="petit" src="deconnection.png" alt="">
+        <img id="petit" (click)="this.deconnexion()" src="deconnection.png" alt="">
+    </div> -->
+    <!-- <router-outlet></router-outlet> -->
+     <!-- <app-motus></app-motus> -->
     </div>
-    <app-motus></app-motus>
-</div>
+<div class="display_other_component">
+        @if(this.page==1){
+            <app-rules></app-rules>
+        }
+        @else if(this.page==2){
+        <p>page</p>
+        }
+    </div>

@@ -1,0 +1,13 @@
+<div class="keyboard">
+    <div class="row" *ngFor="let row of keyboardRows">
+      <button
+        *ngFor="let key of row"
+        (click)="onKeyClick(key,$event)"
+        class="key"
+        [style]="this.gameService.checkColorVirtualKeyboard(key)"
+        (focus)="looseFocus($event)" 
+        >
+        {{ key }}
+      </button>
+    </div>
+  </div>

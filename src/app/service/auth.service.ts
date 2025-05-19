@@ -4,12 +4,15 @@ import { ResponseCreateInfos } from '../interfaces/response-create-infos';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { LoginInfos } from '../interfaces/login-infos';
+import { ResponseLogin } from '../interfaces/response-login';
+import { ResponseLogout } from '../interfaces/response-logout';
+import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private httpClient = inject(HttpClient)
+  gameService = inject(GameService);
   constructor() { 
 
   }
@@ -32,7 +35,7 @@ export class AuthService {
         password : infosUser.password,
         numero_secu : infosUser.numero_secu
       })
-      fetch("http://0.0.0.0:8000/api/createUser",options)
+      fetch("http://0.0.0.0:8000/api/register",options)
       .then(res=>{
         console.log(res)
         return res.json()
@@ -43,7 +46,7 @@ export class AuthService {
   }
 
   public login(loginInfos : LoginInfos){
-    return new Promise <ResponseCreateInfos>((resolve,reject)=>{
+    return new Promise <ResponseLogin>((resolve,reject)=>{
       
       const options={
         method : "POST",
@@ -53,12 +56,39 @@ export class AuthService {
         }
       }
       
-      fetch("http://localhost:8000/api/login_user",options)
+      fetch("http://localhost:8000/api/login",options)
       .then(res=>res.json())
       .then(res=>resolve(res))
       .catch(error=>reject(error))
     })
+  }
 
+  public logout(token : string | null){
+    return new Promise <ResponseLogout> ((resolve,reject)=>{
+      const options={
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json",
+          "Authorization" : `Bearer ${token}`
+        }
+      }
+      fetch("http://localhost:8000/api/logout",options)
+      .then(res=>{
+        console.log(res)
+        return res.json()
+      })
+      .then(res=>resolve(res))
+      .catch(error=>reject(error))
+    })
+  }
+
+  isLoggedIn(){
+    if (localStorage.getItem("token")!=null) {
+      return true;
+    }
+    else{
+      return false
+    }
   }
 
   // loginUser(loginInfos: any): Observable<any> {
