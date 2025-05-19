@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { MotusComponent } from '../motus/motus.component';
 import { AppService } from '../../service/app.service';
 import { Router, RouterOutlet } from '@angular/router';
-import { RulesComponent } from '../../home/rules/rules.component';
+import { RulesComponent } from '../../rules/rules.component';
 
 @Component({
   selector: 'app-home',
-  imports: [MotusComponent,RulesComponent],
+  imports: [RulesComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -15,10 +14,10 @@ export class HomeComponent {
   page = 3;
   constructor (private router : Router){
   }
-  deconnexion(){
-    localStorage.removeItem("token")
-    this.router.navigate(["login"])
-  }
+  // deconnexion(){
+  //   localStorage.removeItem("token")
+  //   this.router.navigate(["login"])
+  // }
   displayRanking(){
     this.page = 2;
   }

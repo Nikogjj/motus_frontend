@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
+    padding: 2rem 0 2rem 0;
 }
 .mot{
     background-color: rgb(51, 51, 51);
@@ -83,3 +84,45 @@
     flex-direction: column;
     align-items: center;
 }
+.difficulté{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.difficulté h2{
+    font-size: x-large;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+.difficulté p{
+    margin: 0;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.buttons button{
+    background-color: grey;
+    font-weight: bolder;
+    border: white 2px solid;
+}
+.buttons button{
+    cursor: pointer;
+}
+.msg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* .msg p{
+    margin: 0;
+}
+.msg h2{
+    margin: 0;
+} */

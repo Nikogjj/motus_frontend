@@ -16,6 +16,7 @@ export class LoginFormComponent {
 
   }
   error = 0;
+  msg_error_submit="";
   authServices=inject(AuthService);
   
   loginForm = new FormGroup({
@@ -27,17 +28,17 @@ export class LoginFormComponent {
     const loginInfos : LoginInfos = {
       pseudo : this.loginForm.get("identifiant")?.value??"",
       password : this.loginForm.get("password")?.value??""
-
     }
     this.authServices.login(loginInfos)
     .then(res=>{
       if (res.error == "none") {
         this.error = 0;
-        localStorage.setItem("token","test")//FAUT CHANGER ICI QUAND JE FAIS L'AUTH
-        this.router.navigate(["/home"]);
+        localStorage.setItem("token",res.token)
+        this.router.navigate(["/game"]);
       }
       else{
         this.error=1;
+        this.msg_error_submit=res.error
       }
     })
     .catch(error=>console.error(error));

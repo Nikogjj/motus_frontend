@@ -1,14 +1,20 @@
-import { Routes } from '@angular/router';
+import { mapToCanActivate, Routes } from '@angular/router';
 import { HomeComponent } from './home-page/home/home.component';
 import { loginGuard } from './guards/login.guard';
 import { homeGuard } from './guards/home.guard';
-import { LoginFormComponent } from './login-page/login-form/login-form.component';
 import { PageComponent } from './login-page/page/page.component';
-import { MotusComponent } from './home-page/motus/motus.component';
+import { MotusComponent } from './motus/motus.component';
+import { RulesComponent } from './rules/rules.component';
+import { RankingComponent } from './ranking/ranking.component';
+import { isLoggedInGuard } from './guards/is-logged-in.guard';
+import { GameComponent } from './game/game.component';
 
 export const routes: Routes = [
     {path:"",redirectTo:"/login",pathMatch:"full"},
     {path:"login",component:PageComponent,canActivate:[loginGuard]},
     {path :"home",component:HomeComponent,canActivate:[homeGuard]},
-    {path:"motus",component:MotusComponent}
+    {path:"motus",component:MotusComponent,canActivate:[isLoggedInGuard]},
+    {path:"game",component:GameComponent,canActivate:[isLoggedInGuard]},
+    {path:"rules",component:RulesComponent,canActivate:[isLoggedInGuard]},
+    {path:"ranking",component:RankingComponent,canActivate:[isLoggedInGuard]}
 ];

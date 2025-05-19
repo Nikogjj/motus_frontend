@@ -1,0 +1,14 @@
+<div class="container">
+    <h2>🎉 Partie terminée !</h2>
+    <div class="score-box">
+      <p>Le mot mystère : <span class="score">{{this.gameService.motATrouverInfo.mot.toUpperCase()}}</span></p>
+      <p>Votre score total: <span class="score">{{this.gameService.score}}</span></p>
+      <p class="message">{{this.gameService.msgGameFinish}}</p>
+        <p class="add">+ {{this.gameService.scoreWin}} points !</p>
+    </div>
+  
+    <div class="actions">
+      <button (click)="this.gameService.restartGame()">Rejouer</button>
+      <button (click)="this.appService.navigateToRanking(this.router)">Voir le classement</button>
+    </div>
+  </div>

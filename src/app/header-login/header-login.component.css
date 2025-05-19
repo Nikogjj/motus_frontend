@@ -1,0 +1,12 @@
+.container_img{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    align-items: flex-end;
+    border-bottom: 3px solid black;
+    padding-bottom: 1rem;
+    width: 100%;
+}
+#logo{
+    width: 400px;
+}

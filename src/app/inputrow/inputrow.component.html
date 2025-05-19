@@ -1,0 +1,14 @@
+<div class="row">
+    @for (lettre of this.gameServices.grilleBonnePosition[this.index()]; track $index) {
+        @if(this.gameServices.motDuJoueur[$index].value==""){
+            <div class="lettre">
+                <p>{{lettre.value?.toUpperCase()}}</p>
+            </div>
+        }
+        @else {
+            <div class="lettre">
+                <p>{{this.gameServices.motDuJoueur[$index].value?.toUpperCase()}}</p>
+            </div>
+        }
+    }
+</div>

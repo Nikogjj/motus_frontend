@@ -1,8 +1,8 @@
 import { Component, effect, HostListener, inject, input, SimpleChange, SimpleChanges } from '@angular/core';
-import { Letter } from '../../interfaces/letter';
-import { AppService } from '../../service/app.service';
+import { Letter } from '../interfaces/letter';
+import { AppService } from '../service/app.service';
 import { CommonModule } from '@angular/common';
-import { Mot } from '../../interfaces/mot';
+import { Mot } from '../interfaces/mot';
 import { KeyboardComponent } from '../keyboard/keyboard.component';
 
 @Component({
@@ -22,11 +22,15 @@ export class MotusComponent {
     exist : false,
     checkPosition : false
   }
+
+
   motATrouver : Mot = {
     mot : "",
     longueur : 0,
     difficulte : ""
   };
+  
+  
   indexTrackLetter : number = 0;
   nb_tentaive = 0;
   nb_tentatives_max = 6;
@@ -181,8 +185,21 @@ export class MotusComponent {
     this.onKeyDown(key);
   }
 
-  // Appelé quand touche virtuelle cliquée
   onVirtualKeyDown(key: string) {
     this.onKeyDown(key)
+  }
+
+  async changeDifficulte(difficulte : string){
+
+    await this.appServices.getRandomMotByDifficulte(difficulte)
+    .then(motRandom=>{
+      this.motATrouver=motRandom;
+    })
+    .catch(error=>console.error(error));
+    this.clearTabTentative();
+  }
+
+  updateScoreUser(difficulte : string){
+
   }
 }

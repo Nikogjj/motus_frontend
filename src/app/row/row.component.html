@@ -1,0 +1,7 @@
+<div class="row">
+    @for (lettre of this.gameServices.grilleDeMot[this.index()]; track $index) {
+        <div class="lettre" [style.background-color]="this.checkDivColor(lettre)">
+            <p [style.background-color]="this.checkPColor(lettre)">{{lettre.value?.toUpperCase()}}</p>
+        </div>
+    }
+</div>

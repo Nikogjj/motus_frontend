@@ -1,0 +1,20 @@
+<div class="leaderboard">
+    <h3>Voici votre score {{this.scoreUser.pseudo}} : {{this.scoreUser.score}}</h3>
+    <h2>🏆 Top 10 des Joueurs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Rang</th>
+          <th>Pseudo</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of this.tab_ranking; let i = index">
+          <td>#{{ i + 1 }}</td>
+          <td>{{ user.pseudo }}</td>
+          <td>{{ user.score }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

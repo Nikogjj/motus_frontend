@@ -1,0 +1,16 @@
+<app-difficulte></app-difficulte>
+<div class="container_game">
+    @for (mot of grilleDeMot; track $index) {
+        @if (this.gameService.nb_tentatives == $index) {
+            <app-inputrow [index]="$index"></app-inputrow>
+        }
+        @else {
+            <app-row [index]="$index"></app-row>
+        }
+    }
+</div>
+@if (this.gameService.isGameFinish) {
+    <app-pop-up-end class="pop_up"></app-pop-up-end>
+}
+<app-keyboard (keyPressed)="onVirtualKeyPress($event)"></app-keyboard>
+

@@ -1,11 +1,11 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form_login">
     <h2>CONNEXION </h2>
-    <!-- @if (this.msg_error_submit!="") {
-        <p>{{msg_error_submit}}</p>
-    } -->
     <div class="container_inputs">
         <input type="text" placeholder="Identifiant" formControlName="identifiant">
-        <input type="text" placeholder="Mot de passe" formControlName="password">
+        <input type="password" placeholder="Mot de passe" formControlName="password">
     </div>
+    @if (this.msg_error_submit!="") {
+        <h3>{{msg_error_submit}}</h3>
+    }
     <button type="submit">LOG IN</button>
 </form>

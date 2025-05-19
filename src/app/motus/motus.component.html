@@ -1,13 +1,14 @@
 <div class="difficulté">
+    <div class="msg">
+        <h2>Choisir une difficulté :</h2>
+        <p>(votre partie se relancera)</p>
+    </div>
     <div class="buttons">
-        <p>Choisir une difficulté :</p>
-        <div>
-            @for (difficulte of tab_difficulte; track $index) {
-                <button>{{difficulte}}</button>
-               }
-           </div>
-       </div>
-       <p>Difficulté du mot : {{this.motATrouver.difficulte}}</p>
+        @for (difficulte of tab_difficulte; track $index) {
+            <button (click)="changeDifficulte(difficulte)">{{difficulte.toUpperCase()}}</button>
+        }
+    </div>
+       <h2>Difficulté du mot actuel : {{this.motATrouver.difficulte}}</h2>
 </div>
 
  <div class="mot" tabindex="0">
