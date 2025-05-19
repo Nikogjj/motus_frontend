@@ -3,7 +3,6 @@ import { HomeComponent } from './home-page/home/home.component';
 import { loginGuard } from './guards/login.guard';
 import { homeGuard } from './guards/home.guard';
 import { PageComponent } from './login-page/page/page.component';
-import { MotusComponent } from './motus/motus.component';
 import { RulesComponent } from './rules/rules.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { isLoggedInGuard } from './guards/is-logged-in.guard';
@@ -13,7 +12,6 @@ export const routes: Routes = [
     {path:"",redirectTo:"/login",pathMatch:"full"},
     {path:"login",component:PageComponent,canActivate:[loginGuard]},
     {path :"home",component:HomeComponent,canActivate:[homeGuard]},
-    {path:"motus",component:MotusComponent,canActivate:[isLoggedInGuard]},
     {path:"game",component:GameComponent,canActivate:[isLoggedInGuard]},
     {path:"rules",component:RulesComponent,canActivate:[isLoggedInGuard]},
     {path:"ranking",component:RankingComponent,canActivate:[isLoggedInGuard]}

@@ -45,15 +45,6 @@ export class GameService {
       this.reinitialiseGrilleBonnePostion();
       this.reinitialiseGrilleDeMot();
       this.fillMotDuJoueur();
-      this.appService.getInfosUser().then(res=>{
-        this.pseudo=res.pseudo;
-        this.score= res.score;
-      })
-      await this.appService.getInfosUser()
-      .then(res=>{
-        this.pseudo = res.pseudo,
-        this.score = res.score
-      })
     })
   }
 
@@ -91,7 +82,7 @@ export class GameService {
     }
     fetch("http://localhost:8000/api/update_score_user",options)
     .then(res=>res.json())
-    .then(res=>console.log(res))
+    // .then(res=>)
     .catch(error=>console.error(error))
   }
 
@@ -178,7 +169,6 @@ export class GameService {
             "Content-Type" : "application/json"
           }
         }
-        // console.log(options)
     fetch("http://localhost:8000/api/get_random_mot_by_difficulte",options)
     .then(res=>res.json())
     .then(res=>resolve(res))
@@ -198,24 +188,17 @@ export class GameService {
     })
   }
   handleKeyDown(key: string) {
-    // console.log(this.motDuJoueur)
     if (this.isGameFinish) {
       return
     }
     if (/^[\p{L}]$/u.test(key) && this.trackIndex < this.motATrouver.length) {
-      // console.log("add")
       this.addLetterToMotJoueur(key)
     }
     else if(key == "Backspace" && this.trackIndex !=0){
-      // console.log("delete")
       this.deleteLetterToMotJoueur()
     }
     else if(key=="Enter" && this.trackIndex == this.motATrouver.length){
-      // console.log("CEST LA")
-      // console.log(key)
-      // console.log("ENTER 1:",this.motDuJoueur)
       this.submitMot()
-      // console.log("ENTER 2:",this.motDuJoueur)
     }
   }
   checkIfExist(){
@@ -278,14 +261,10 @@ export class GameService {
     mot.forEach((lettre,i,mot) => {
       motATrouver = motATrouver.concat(mot[i].value??=""); 
     });
-    // console.log(motATrouver);
-    // console.log(lettreJoueur)
     if (motATrouver.includes(lettreJoueur)) {
-      // console.log(true)
       return true;
     }
     else{
-      // console.log(false)
       return false;
     }
   }
@@ -324,7 +303,6 @@ export class GameService {
           checkPosition : false
         }
         mot[i]=lettreUpdated;
-        // console.log("mot pas trouver",i)
         }
       }
     });
@@ -345,7 +323,6 @@ export class GameService {
       this.motDuJoueur[i]=lettreUpdate;
     });
     this.trackIndex=0;
-    console.log(this.motDuJoueur)
   }
   addLetterToMotJoueur(key:string){
     this.motDuJoueur[this.trackIndex]={
@@ -373,19 +350,14 @@ export class GameService {
     this.motDuJoueur.forEach((lettre,i,mot) => {
       motduJoueur = motduJoueur.concat(mot[i].value??=""); 
     });
-    // console.log(motATrouver);
-    // console.log(motduJoueur);
     if (motATrouver == motduJoueur) {
-      console.log("victory")
       return "victory"
     }
     else{
       if (this.nb_tentatives==this.nb_tentatives_max-1) {
-      console.log("defeat")
         return "defeat"
       }
       else{
-        console.log("continue")
         return "continue"
       }
     }
@@ -401,7 +373,6 @@ export class GameService {
       }
       tab_mot[i].forEach((copy_mot,i,mot) => { 
         if (mot[i].value == keyboardLetter.value) {
-          // console.log(key,"red")
           keyboardLetter.color = "red"
         }
         else{
@@ -425,9 +396,6 @@ export class GameService {
       }
       mot[i]=lettreUpdated;
     });
-    console.log("MOT DU JOUEUR",this.motDuJoueur);
-    console.log("nb_tentatives",this.nb_tentatives)
-    console.log("nb_tentatives_max",this.nb_tentatives_max)
 
     this.checkPosition()
     this.checkIfExist()
@@ -436,7 +404,6 @@ export class GameService {
       case "victory":
         this.resetMotDuJoueur();
         this.grilleBonnePosition[this.nb_tentatives] = this.motDuJoueur
-        // console.log(this.grilleBonnePosition[this.nb_tentatives]);
         this.nb_tentatives++
         this.msgGameFinish = "Vous avez gagné !"
         this.isGameFinish = true;
@@ -454,7 +421,6 @@ export class GameService {
         this.nb_tentatives++
         break;
       default:
-        console.log("error")
         break;
     }
   }

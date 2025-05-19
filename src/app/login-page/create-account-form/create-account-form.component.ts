@@ -37,11 +37,9 @@ export class CreateAccountFormComponent {
   async onSubmit(){
     if (this.createAccountForm.invalid) {
       this.createAccountForm.markAllAsTouched();
-      console.log("alltouched")
       return;
     }
     if (this.createAccountForm.controls.password.value != this.createAccountForm.controls.confirmed_password.value) {
-      console.log("Les mots de passe ne correspondent pas")
       this.verifyPassword=1
       return;
     }
@@ -51,7 +49,6 @@ export class CreateAccountFormComponent {
       numero_secu : ""
     })
     .then(res=>{
-      console.log(res)
       if (res.error == "none" ) {
         this.verifyIfAccountCreated = 1;
         this.msgAccountCreated=res.message
@@ -60,8 +57,7 @@ export class CreateAccountFormComponent {
         this.verifyIfAccountCreated = 1;
         this.msgAccountCreated=res.message;
       }
-    }).catch(console.log)
-    console.log("send to api rest")
+    }).catch(error=>console.error(error))
   }
 
   isInvalidTouchedOrDirty(name : string){

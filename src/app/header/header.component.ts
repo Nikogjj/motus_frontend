@@ -23,12 +23,12 @@ export class HeaderComponent {
       if (res.error == "none") {
         localStorage.removeItem("token");
         this.router.navigate(["login"])
-        location.reload()
       }
       else{
         console.log(res.error)
       }
     })
     .catch(error=>console.log(error));
+    this.gameService.restartGame();
   }
 }

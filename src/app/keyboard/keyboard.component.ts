@@ -20,29 +20,21 @@ export class KeyboardComponent {
   ];
   
   looseFocus(event : any) {
-
-    console.log(event.target.blur())
+    event.target.blur()
   }
 
   onKeyClick(key: string,click : Event) {
     switch (key) {
       case "⏎":
         key="Enter";
-        console.log(this.keyPressed)
         this.keyPressed.emit(key)
-        // this.gameService.handleKeyDown(key)
         break;
       case "←":
         key="Backspace"
-        console.log(this.keyPressed)
         this.keyPressed.emit(key)
-        // this.gameService.handleKeyDown(key)
         break;
       default:
-        console.log(this.keyPressed)
         this.keyPressed.emit(key)
-        console.log(key)
-        // this.gameService.handleKeyDown(key.toLowerCase())
         break;
     }
   }

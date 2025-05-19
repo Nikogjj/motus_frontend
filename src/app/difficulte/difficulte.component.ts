@@ -11,7 +11,6 @@ export class DifficulteComponent {
   gameService = inject(GameService)
   tab_difficulte = ["facile","intermédiaire","moyen","difficile","hardcore"];
   looseFocus(event : any) {
-
-    console.log(event.target.blur())
+    event.target.blur()
   }
 }

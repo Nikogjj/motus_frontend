@@ -30,14 +30,8 @@ export class AuthService {
           numero_secu : infosUser.numero_secu
         })
       }
-      console.log({
-        pseudo : infosUser.identifiant,
-        password : infosUser.password,
-        numero_secu : infosUser.numero_secu
-      })
       fetch("http://0.0.0.0:8000/api/register",options)
       .then(res=>{
-        console.log(res)
         return res.json()
       })
       .then(res=>resolve(res))
@@ -74,7 +68,6 @@ export class AuthService {
       }
       fetch("http://localhost:8000/api/logout",options)
       .then(res=>{
-        console.log(res)
         return res.json()
       })
       .then(res=>resolve(res))
@@ -90,16 +83,4 @@ export class AuthService {
       return false
     }
   }
-
-  // loginUser(loginInfos: any): Observable<any> {
-  //   return this.httpClient.post("http://localhost:8000/api/login_user", loginInfos)
-  //     .pipe(
-  //       tap(res => {
-  //         console.log('Réponse reçue:', res);
-  //       }),
-  //       catchError(error => {
-  //         console.error('Erreur:', error);
-  //         return of(null);  // ou throwError(error) selon les besoins
-  //       })
-  //     );
 }
