@@ -2,7 +2,19 @@
 
 Dans votre terminal :
 
-- Cloner le dépôt : `git clone https://github.com/Nikogjj/motus_frontend.git`
-- Se déplacer dans le dossier : `cd motus_frontend`
-- Installer les dépendances Node.js : `npm install`
-- Lancer le serveur : `ng serve`
+- Cloner le dépôt :
+```bash
+git clone https://github.com/Nikogjj/motus_frontend.git
+```
+- Se déplacer dans le dossier :
+```bash
+cd motus_frontend
+```
+- Installer les dépendances Node.js : 
+```bash
+npm install
+```
+- Lancer le serveur :
+```bash
+ng serve
+```
