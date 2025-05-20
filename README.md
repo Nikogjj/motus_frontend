@@ -1,4 +1,6 @@
-## ✅ Checklist de setup rapide - Frontend (Angular)
+## Voici les commandes à suivre pour executer le frontend
+
+Dans votre terminal :
 
 - Cloner le dépôt : `git clone https://github.com/ton-utilisateur/ton-frontend.git`
 - Se déplacer dans le dossier : `cd ton-frontend`
